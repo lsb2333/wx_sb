@@ -28,5 +28,6 @@
 		<module>weixin_sb_1</module>
 		<module>subscribe_sb</module>
 		<module>commons</module>
+		<module>unsubscribe_sb</module>
 	</modules>
 </project>

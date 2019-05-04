@@ -1,4 +1,4 @@
-package org.sbjava.weixin_sb;
+package org.sbjava.weixin_sb.unsubscribe;
 
 import org.sbjava.commons.config.EventListenerConfig;
 import org.sbjava.commons.domain.event.EventInMessage;
@@ -21,10 +21,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @ComponentScan("org.sbjava")
 @EnableJpaRepositories("org.sbjava")
 @EntityScan("org.sbjava")
-public class SubscribeSbApplication implements //
-		EventListenerConfig, //
+public class UnsubscribeSbApplication implements //
+		EventListenerConfig,
 		// 得到Spring的容器
 		ApplicationContextAware {
+	private static final Logger LOG = LoggerFactory.getLogger(UnsubscribeSbApplication.class);
 	private ApplicationContext ctx;// Spring容器
 
 	@Override
@@ -33,8 +34,7 @@ public class SubscribeSbApplication implements //
 	}
 
 
-	private static final Logger LOG = LoggerFactory.getLogger(SubscribeSbApplication.class);
-
+	@Override
 	public void handle(EventInMessage msg) {
 		// 1.当前类实现ApplicationContextAware接口，用于获得Spring容器
 		// 2.把Event全部转换为小写，并且拼接上MessageProcessor作为ID
@@ -60,7 +60,7 @@ public class SubscribeSbApplication implements //
 	}
 
 	public static void main(String[] args) throws InterruptedException {
-		SpringApplication.run(SubscribeSbApplication.class, args);
+		SpringApplication.run(UnsubscribeSbApplication.class, args);
 //		System.out.println("Spring Boot应用启动成功");
 		// 让程序进入等待、不要退出
 //		CountDownLatch countDownLatch = new CountDownLatch(1);
