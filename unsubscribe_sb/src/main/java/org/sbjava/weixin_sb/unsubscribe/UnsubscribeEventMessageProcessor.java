@@ -32,6 +32,5 @@ public class UnsubscribeEventMessageProcessor implements EventMessageProcessor {
 			user.setStatus(User.Status.IS_UNSUBSCRIBE);
 			user.setUnsubTime(new Date());
 		}
-		
 	}
 }
