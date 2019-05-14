@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @Entity
-@Table(name = "wx_user")
+@Table(name = "sb_user")
 public class User {
 
 	@Id // 表示一个主键
