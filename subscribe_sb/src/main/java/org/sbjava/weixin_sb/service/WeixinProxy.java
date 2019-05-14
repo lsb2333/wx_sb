@@ -9,6 +9,7 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.charset.Charset;
 
 import org.sbjava.commons.domain.User;
+import org.sbjava.commons.service.TokenManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,7 @@ public class WeixinProxy {
 	}
 
 	public void sendText(String account, String openId, String string) {
-		// TODO 发送文本信息给指定的用户
+		
 	}
 
 }

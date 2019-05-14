@@ -40,12 +40,13 @@ public class SubscribeEventMessageProcessor implements EventMessageProcessor {
 			if (user != null) {
 				// 原来关注过
 				wxUser.setId(user.getId());
+				wxUser.setSubTime(user.getSubTime());
 				wxUser.setUnsubTime(null);
+				
 			}
 			
-			wxUser.setSubTime(user.getSubTime());
-			
 			wxUser.setStatus(User.Status.IS_SUBSCRIBE);
+			wxUser.setSubTime(user.getSubTime());
 
 			// 如果有id的值，会自动update；没有id的值会insert
 			this.userRepository.save(wxUser);

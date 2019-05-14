@@ -1,4 +1,4 @@
-package org.sbjava.weixin_sb.service;
+package org.sbjava.commons.service;
 
 public interface TokenManager {
 
