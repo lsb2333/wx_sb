@@ -6,7 +6,7 @@ import org.sbjava.commons.processors.EventMessageProcessor;
 import org.sbjava.commons.repository.UserRepository;
 import org.sbjava.weixin_sb.service.WeixinProxy;
 
-import java.util.Data;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
