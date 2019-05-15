@@ -49,7 +49,7 @@ public class UnsubscribeSbApplication implements //
 				LOG.warn("Bean的ID {} 无法调用对应的消息处理器: {} 对应的Bean不存在", id, id);
 			}
 		} catch (Exception e) {
-			LOG.warn("Bean的ID {} 无法调用对应的消息处理器: {}", id, e.getMessage());
+//			LOG.warn("Bean的ID {} 无法调用对应的消息处理器: {}", id, e.getMessage());
 //			LOG.trace(e.getMessage(), e);
 		}
 	}
