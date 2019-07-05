@@ -11,3 +11,8 @@ mvn spring-boot:start
 cd ../unsubscribe_sb
 mvn spring-boot:start
 
+cd ../self_menu_sb
+mvn spring-boot:start
+
+cd ../library_sb
+mvn spring-boot:start

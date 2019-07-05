@@ -1,4 +1,4 @@
-package org.sbjava.weixin_sb.service;
+package org.sbjava.commons.service;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -12,7 +12,6 @@ import java.util.concurrent.CompletableFuture;
 
 import org.sbjava.commons.domain.User;
 import org.sbjava.commons.domain.text.TextOutMessage;
-import org.sbjava.commons.service.TokenManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class WeixinProxy {
 	private TokenManager tokenManager;
 	@Autowired
 	private ObjectMapper objectMapper;
-	
+
 	private HttpClient client = HttpClient.newBuilder()//
 			.version(Version.HTTP_1_1)// HTTP 1.1
 			.build();
@@ -40,7 +39,6 @@ public class WeixinProxy {
 				+ "?access_token=" + token//
 				+ "&openid=" + openId//
 				+ "&lang=zh_CN";
-
 
 		HttpRequest request = HttpRequest.newBuilder(URI.create(url))//
 				.GET()// 以GET方式请求
@@ -66,29 +64,43 @@ public class WeixinProxy {
 
 	public void sendText(String account, String openId, String content) {
 		TextOutMessage msg = new TextOutMessage(openId, content);
-		
-		//获取令牌
-		String token = this.tokenManager.getToken(account);
 		try {
-			//转换消息为JSON
+			// 转换消息对象为JSON
 			String json = this.objectMapper.writeValueAsString(msg);
-			
-			String url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=" + token;
-			HttpRequest request = HttpRequest.newBuilder(URI.create(url))//
-					.POST(BodyPublishers.ofString(json, Charset.forName("UTF-8")))// 以POST方式请求
-					.build();
-			
-			//异步方法发送请求
-			CompletableFuture<HttpResponse<String>> future //
-				= client.sendAsync(request, BodyHandlers.ofString(Charset.forName("UTF-8")));
-			future.thenAccept(response ->{
-				String body = response.body();
-				LOG.trace("发送客服消息返回的内容： \n{}", body);
-			});
+			// 发送消息
+			String url = "https://api.weixin.qq.com/cgi-bin/message/custom/send?access_token=";
+			post(url, json);
 		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOG.error("通过客服接口发送信息出现问题：" + e.getLocalizedMessage(), e);
 		}
 	}
 
+	public void saveMenu(String json) {
+		String url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=";
+		this.post(url, json);
+	}
+
+	private void post(String url, String json) {
+		LOG.trace("POST方式发送给微信公众号的信息: \n{}", json);
+		// 获取令牌
+		String token = this.tokenManager.getToken(null);
+		try {
+			// 转换消息对象为JSON
+			// 发送消息
+			url = url + token;
+			HttpRequest request = HttpRequest.newBuilder(URI.create(url))//
+					.POST(BodyPublishers.ofString(json, Charset.forName("UTF-8")))// POST方式发送
+					.build();
+
+			// 异步方式发送请求
+			CompletableFuture<HttpResponse<String>> future//
+					= client.sendAsync(request, BodyHandlers.ofString(Charset.forName("UTF-8")));
+			future.thenAccept(response -> {
+				String body = response.body();
+				LOG.trace("POST数据到微信公众号返回的内容 : \n{}", body);
+			});
+		} catch (Exception e) {
+			LOG.error("POST数据到微信公众号出现问题：" + e.getLocalizedMessage(), e);
+		}
+	}
 }

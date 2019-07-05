@@ -29,5 +29,7 @@
 		<module>subscribe_sb</module>
 		<module>commons</module>
 		<module>unsubscribe_sb</module>
+		<module>self_menu_sb</module>
+		<module>library_sb</module>
 	</modules>
 </project>

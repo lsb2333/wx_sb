@@ -1,13 +1,12 @@
 package org.sbjava.weixin_sb.processors.impl;
 
+import java.util.Date;
+
 import org.sbjava.commons.domain.User;
 import org.sbjava.commons.domain.event.EventInMessage;
 import org.sbjava.commons.processors.EventMessageProcessor;
 import org.sbjava.commons.repository.UserRepository;
-import org.sbjava.weixin_sb.service.WeixinProxy;
-
-import java.util.Date;
-
+import org.sbjava.commons.service.WeixinProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
