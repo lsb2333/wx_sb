@@ -99,7 +99,7 @@
 					<!-- 并且可以使用mvn spring-boot:stop 停止程序 -->
 					<fork>true</fork>
 					<!-- 每个fork出来的进程都会需要一个JMX端口，不能重复 -->
-					<jmxPort>9504</jmxPort>
+					<jmxPort>9603</jmxPort>
 				</configuration>
 			</plugin>
 		</plugins>
